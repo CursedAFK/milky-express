@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 		title: 'Milky Express',
 		description:
 			'Milky Express: Your dairy destination for premium milk, yogurts, cheeses & plant-based alternatives. Ethically sourced, deliciously crafted. Join us on a journey of taste!',
-		images: ['/images/screenshot.png']
+		images: ['/images/screenshot.png'],
+		url: 'https://milky-express.vercel.app/'
 	}
 }
 
