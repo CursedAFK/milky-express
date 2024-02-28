@@ -3,16 +3,26 @@ import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import Cookies from 'js-cookie'
 
+type CkeckoutInfo = {
+	firstName: string
+	lastName: string
+	email: string
+	phone: string
+	address: string
+	country: string
+	state: string
+	city: string
+	additionalInformation?: string
+	coupon?: string
+}
+
 type User = {
 	isAuthenticated: boolean
-	data: {
-		firstName: string
-		lastName: string
+	data?: {
 		email: string
 		password: string
 		phone: number
-		address: string
-	} | null
+	}
 }
 
 type Cart = (Product & { quantity: number })[]
@@ -28,14 +38,14 @@ type GlobalStore = {
 	order: (Cart & {
 		number: number
 		status: 'paid' | 'pending' | 'delivered' | 'cancelled'
+		checkoutInfo: CkeckoutInfo
 	})[]
 }
 
 const useGlobalStore = create(
 	immer<GlobalStore>(set => ({
 		user: {
-			isAuthenticated: false,
-			data: null
+			isAuthenticated: false
 		},
 		addUser: (user: User) =>
 			set(store => {
