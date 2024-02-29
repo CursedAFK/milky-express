@@ -83,9 +83,9 @@ const useGlobalStore = createWithEqualityFn(
 		order: Cookies.get('order') ? JSON.parse(Cookies.get('order')!) : [],
 		addOrder: (order: Order) =>
 			set(store => {
-				Cookies.set('order', JSON.stringify([...store.order, order]))
 				store.order.push(order)
 				store.cart = []
+				Cookies.set('order', JSON.stringify([...useGlobalStore.getState().order, order]))
 			})
 	})),
 	shallow

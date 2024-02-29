@@ -11,6 +11,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
+	metadataBase: new URL('https://milky-express.vercel.app/'),
 	title: 'Miky Experss Shop',
 	description:
 		'Milky Express: Your dairy destination for premium milk, yogurts, cheeses & plant-based alternatives. Ethically sourced, deliciously crafted. Join us on a journey of taste!',
