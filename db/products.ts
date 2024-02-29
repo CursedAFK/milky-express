@@ -2,7 +2,7 @@ import { Product } from '@/types/product'
 
 export const products: Product[] = [
 	{
-		id: crypto.randomUUID(),
+		id: '01',
 		name: 'Milky Lactation Cookies',
 		price: 3000,
 		description: {
@@ -16,7 +16,7 @@ export const products: Product[] = [
 		image: ['/images/milky lactose cookies v1.png', '/images/milky lactose cookies v2.png', '/images/milky lactose cookies v2.png']
 	},
 	{
-		id: crypto.randomUUID(),
+		id: '02',
 		name: 'Breast Milk Bag',
 		price: 4500,
 		description: {
@@ -30,7 +30,7 @@ export const products: Product[] = [
 		image: ['/images/breast milk bag.png', '/images/milky lactose cookies v2.png', '/images/milky lactose cookies v2.png']
 	},
 	{
-		id: crypto.randomUUID(),
+		id: '03',
 		name: 'Milky Enrich Shakes',
 		price: 3500,
 		description: {
@@ -44,7 +44,7 @@ export const products: Product[] = [
 		image: ['/images/milky enrichment.png', '/images/milky lactose cookies v2.png', '/images/milky lactose cookies v2.png']
 	},
 	{
-		id: crypto.randomUUID(),
+		id: '04',
 		name: 'Milky Lactation Tea',
 		price: 6000,
 		description: {
@@ -58,7 +58,7 @@ export const products: Product[] = [
 		image: ['/images/milky lactose tea.png', '/images/milky lactose cookies v2.png', '/images/milky lactose cookies v2.png']
 	},
 	{
-		id: crypto.randomUUID(),
+		id: '05',
 		name: 'Milky Lactation Granola',
 		price: 4000,
 		description: {

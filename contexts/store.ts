@@ -1,7 +1,8 @@
 import { Product } from '@/types/product'
-import { create } from 'zustand'
-import { immer } from 'zustand/middleware/immer'
 import Cookies from 'js-cookie'
+import { immer } from 'zustand/middleware/immer'
+import { shallow } from 'zustand/shallow'
+import { createWithEqualityFn } from 'zustand/traditional'
 
 type CkeckoutInfo = {
 	firstName: string
@@ -21,8 +22,16 @@ type User = {
 	data?: {
 		email: string
 		password: string
-		phone: number
+		phone?: number
 	}
+}
+
+export type Order = {
+	cart: Cart
+	number: number
+	status: 'paid' | 'pending' | 'delivered' | 'cancelled'
+	date: string
+	checkoutInfo: CkeckoutInfo
 }
 
 type Cart = (Product & { quantity: number })[]
@@ -35,18 +44,17 @@ type GlobalStore = {
 	removeFromCart: (product: Product) => void
 	increaseQuantity: (product: Product) => void
 	decreaseQuantity: (product: Product) => void
-	order: (Cart & {
-		number: number
-		status: 'paid' | 'pending' | 'delivered' | 'cancelled'
-		checkoutInfo: CkeckoutInfo
-	})[]
+	order: Order[]
+	addOrder: (order: Order) => void
 }
 
-const useGlobalStore = create(
+const useGlobalStore = createWithEqualityFn(
 	immer<GlobalStore>(set => ({
-		user: {
-			isAuthenticated: false
-		},
+		user: Cookies.get('user')
+			? JSON.parse(Cookies.get('user')!)
+			: {
+					isAuthenticated: false
+			  },
 		addUser: (user: User) =>
 			set(store => {
 				store.user = user
@@ -70,10 +78,17 @@ const useGlobalStore = create(
 			set(store => {
 				const item = store.cart.find(item => item.id === product.id)
 				if (item && item.quantity > 1) item.quantity--
-				else store.removeFromCart(product)
+				else store.cart = store.cart.filter(item => item.id !== product.id)
 			}),
-		order: []
-	}))
+		order: Cookies.get('order') ? JSON.parse(Cookies.get('order')!) : [],
+		addOrder: (order: Order) =>
+			set(store => {
+				Cookies.set('order', JSON.stringify([...store.order, order]))
+				store.order.push(order)
+				store.cart = []
+			})
+	})),
+	shallow
 )
 
 export default useGlobalStore

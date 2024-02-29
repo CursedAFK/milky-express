@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import useGlobalStore from '@/contexts/store'
 import { Product } from '@/types/product'
 import Image from 'next/image'
-import Link from 'next/link'
 import { HiOutlinePrinter } from 'react-icons/hi2'
 import { IoIosCheckmarkCircle } from 'react-icons/io'
 
@@ -36,7 +35,7 @@ function OrderItem({ cartItem }: OrderItemProps) {
 	)
 }
 
-export default function Order({ params }: Props) {
+export default function PrintOrder({ params }: Props) {
 	const order = useGlobalStore(state => state.order)
 
 	const orderDetails = order.find(order => order.number === +params.orderId)
@@ -144,12 +143,12 @@ export default function Order({ params }: Props) {
 					</div>
 				</div>
 
-				<Link
-					href={`/orders/${orderDetails.number}/print`}
+				<button
 					className='md:text-lg font-medium text-brand-secondary flex items-center justify-center gap-2 hover:text-brand-primary transition-colors md:py-6 py-4 text-center w-full'
+					onClick={() => window.print()}
 				>
 					<HiOutlinePrinter /> Print
-				</Link>
+				</button>
 			</div>
 		</div>
 	)
